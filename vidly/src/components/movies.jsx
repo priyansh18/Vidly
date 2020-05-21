@@ -16,9 +16,10 @@ class Movies extends Component {
   };
 
   componentDidMount() {
+    const genres = [{ name: "All Genres" }, ...getGenres()];
     this.setState({
       movies: getMovies(),
-      genres: getGenres(),
+      genres,
     });
   }
 
@@ -44,7 +45,7 @@ class Movies extends Component {
 
   handleGenreSelect = (genre) => {
     // console.log("selected genre", genre);
-    this.setState({ selectedGenre: genre });
+    this.setState({ selectedGenre: genre, currentPage: 1 });
   };
 
   render() {
@@ -56,14 +57,15 @@ class Movies extends Component {
       movies: allMovies,
     } = this.state;
     if (count === 0) return <p>No Movies in DataBase</p>;
-    const filteredMovies = selectedGenre
-      ? allMovies.filter((m) => m.genre._id === selectedGenre._id)
-      : allMovies;
+    const filteredMovies =
+      selectedGenre && selectedGenre._id
+        ? allMovies.filter((m) => m.genre._id === selectedGenre._id)
+        : allMovies;
     const movies = paginate(filteredMovies, currentPage, pageSize);
 
     return (
       <div className="row">
-        <div className="col-3">
+        <div className="col-4">
           <ListGroup
             items={this.state.genres}
             selectedItem={this.state.selectedGenre}
