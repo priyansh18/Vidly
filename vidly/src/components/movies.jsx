@@ -47,6 +47,10 @@ class Movies extends Component {
     this.setState({ selectedGenre: genre, currentPage: 1 });
   };
 
+  handleSort = (path) => {
+    console.log("sorted", path);
+  };
+
   render() {
     const { length: count } = this.state.movies;
     const {
@@ -67,7 +71,7 @@ class Movies extends Component {
         <div className="col-4">
           <ListGroup
             items={this.state.genres}
-            selectedItem={this.state.selectedGenre}
+            onsort={this.handleSort}
             textProperty="name"
             valueProperty="_id"
             onItemSelect={this.handleGenreSelect}
@@ -79,6 +83,7 @@ class Movies extends Component {
             movies={movies}
             onLike={this.handleLike}
             onDelete={this.handleDelete}
+            onSort={this.handleSort}
           />
           <Pagination
             itemsCount={filteredMovies.length}
