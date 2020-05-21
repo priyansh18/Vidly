@@ -24,7 +24,7 @@ class Movies extends Component {
 
   handleDelete = (movie) => {
     // console.log(movie);
-    const movies = this.state.movies.filter((m) => m._id != movie._id);
+    const movies = this.state.movies.filter((m) => m._id !== movie._id);
     this.setState({ movies });
   };
 
@@ -49,15 +49,17 @@ class Movies extends Component {
   render() {
     const { length: count } = this.state.movies;
     const { currentPage, pageSize, movies: allMovies } = this.state;
-    if (count == 0) return <p>No Movies in DataBase</p>;
+    if (count === 0) return <p>No Movies in DataBase</p>;
 
     const movies = paginate(allMovies, currentPage, pageSize);
 
     return (
       <div className="row">
-        <div className="col-2">
+        <div className="col-3">
           <ListGroup
             items={this.state.genres}
+            textProperty="name"
+            valueProperty="_id"
             onItemSelect={this.handleGenreSelect}
           />
         </div>
