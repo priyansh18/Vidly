@@ -54,6 +54,8 @@ class Movies extends Component {
     this.setState({ sortColumn });
   };
 
+  // renderSortIcon =
+
   render() {
     const { length: count } = this.state.movies;
     const {
@@ -90,6 +92,7 @@ class Movies extends Component {
             textProperty="name"
             valueProperty="_id"
             onItemSelect={this.handleGenreSelect}
+            onRenderSortIcon={this.renderSortIcon}
           />
         </div>
         <div className="col">
