@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 
 class LoginForm extends Component {
+  username = React.createRef();
+
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Submitted");
+    // console.log("Submitted");
+    const username = this.username.current.value;
   };
   render() {
     return (
@@ -15,6 +18,8 @@ class LoginForm extends Component {
 
             <input
               id="username"
+              autoFocus
+              ref={this.username}
               htmlFor="Username"
               type="text"
               className="form-control"
