@@ -85,7 +85,6 @@ class Movies extends Component {
     const { currentPage, pageSize, sortColumn } = this.state;
 
     if (count === 0) return <p>No Movies in DataBase</p>;
-
     const { totalCount, data: movies } = this.getPagedData();
     return (
       <div className="row">
@@ -100,7 +99,8 @@ class Movies extends Component {
           />
         </div>
         <div className="col">
-          <p>{totalCount} movies in database</p>
+          <button className="btn btn-info">New Movie</button>
+          <p>Total {totalCount} movies in database</p>
           <MoviesTable
             movies={movies}
             onLike={this.handleLike}

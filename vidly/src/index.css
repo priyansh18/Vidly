@@ -20,3 +20,7 @@ code {
 .clickable {
   cursor: pointer;
 }
+
+.btn {
+  margin-bottom: 10px;
+}
