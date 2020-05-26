@@ -1,19 +1,7 @@
 import React, { Component } from "react";
-import axios from "axios";
+import http from "./services/httpServices";
+import config from "./config.json";
 import "./App.css";
-
-axios.interceptors.response.use(null, (error) => {
-  const expectedError =
-    error.response &&
-    error.response.status >= 400 &&
-    error.response.state < 500;
-  if (!expectedError)
-    return alert("Something went Wrong while deleting a post");
-
-  return Promise.reject(error);
-});
-
-const apiEndPoint = "https://jsonplaceholder.typicode.com/posts";
 
 class App extends Component {
   state = {
@@ -21,13 +9,13 @@ class App extends Component {
   };
 
   async componentDidMount() {
-    const { data: posts } = await axios.get(apiEndPoint);
+    const { data: posts } = await http.get(config.apiEndPoint);
     this.setState({ posts });
   }
 
   handleAdd = async () => {
     const obj = { title: "a", body: "b" };
-    const { data: post } = await axios.post(apiEndPoint, obj);
+    const { data: post } = await http.post(config.apiEndPoint, obj);
     // console.log(post);
 
     const posts = [post, ...this.state.posts];
@@ -37,7 +25,7 @@ class App extends Component {
   handleUpdate = async (post) => {
     // console.log("Update", post);
     post.title = "Hello";
-    const { data } = await axios.put(apiEndPoint + "/" + post.id, post);
+    const { data } = await http.put(config.apiEndPoint + "/" + post.id, post);
 
     const posts = [...this.state.posts];
     const index = posts.indexOf(post);
@@ -52,7 +40,7 @@ class App extends Component {
     this.setState({ posts });
 
     try {
-      await axios.delete(apiEndPoint + "/" + post.id);
+      await http.delete(config.apiEndPoint + "/" + post.id);
       throw new Error("");
     } catch (ex) {
       //Expected Errors(404 not found)
