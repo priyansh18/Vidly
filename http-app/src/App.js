@@ -2,6 +2,17 @@ import React, { Component } from "react";
 import axios from "axios";
 import "./App.css";
 
+axios.interceptors.response.use(null, (error) => {
+  const expectedError =
+    error.response &&
+    error.response.status >= 400 &&
+    error.response.state < 500;
+  if (!expectedError)
+    return alert("Something went Wrong while deleting a post");
+
+  return Promise.reject(error);
+});
+
 const apiEndPoint = "https://jsonplaceholder.typicode.com/posts";
 
 class App extends Component {
@@ -48,10 +59,6 @@ class App extends Component {
       //UnExpected Errors(network down,server down,bug)
       if (ex.response && ex.response.status === 404)
         alert("The post has already been deleted");
-      else {
-        alert("Something went Wrong while deleting a post");
-        console.log(ex);
-      }
       this.setState({ posts: orignalPosts });
     }
   };
