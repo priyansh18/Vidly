@@ -8,7 +8,7 @@ import Pagination from "./common/pagination";
 import { paginate } from "../utils/paginate";
 import SearchBox from "./searchBox";
 import _ from "lodash";
-giimport { toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 class Movies extends Component {
   state = {
