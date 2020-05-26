@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { getMovies } from "../services/fakeMovieService";
-import { getGenres } from "../services/fakeGenreService";
+import { getGenres } from "../services/genreService";
 import MoviesTable from "./moviesTable";
 import ListGroup from "./common/listGroup";
 import { Link } from "react-router-dom";
@@ -20,8 +20,10 @@ class Movies extends Component {
     sortColumn: { path: "title", order: "asc" },
   };
 
-  componentDidMount() {
-    const genres = [{ name: "All Genres" }, ...getGenres()];
+  async componentDidMount() {
+    // To spread operstor we need to convert into data
+    const { data } = await getGenres();
+    const genres = [{ name: "All Genres" }, ...data];
     this.setState({
       movies: getMovies(),
       genres,
