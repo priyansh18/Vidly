@@ -1,5 +1,5 @@
 import React from "react";
-import Joi from "joi-browser";
+import Joi, { applyToDefaultsWithShallow } from "joi-browser";
 import Form from "./common/form";
 import { getMovie, saveMovie } from "../services/movieService";
 import { getGenres } from "../services/genreService";
@@ -31,11 +31,12 @@ class MovieForm extends Form {
       .max(10)
       .label("Daily Rental Rate"),
   };
-
-  async componentDidMount() {
+  async populatingGenres() {
     const { data: genres } = await getGenres();
     this.setState({ genres });
+  }
 
+  async populatingMovie() {
     const movieId = this.props.match.params.id;
     if (movieId === "new") return;
 
@@ -46,6 +47,11 @@ class MovieForm extends Form {
       if (ex.response && ex.response.status === 404)
         this.props.history.replace("/not-found");
     }
+  }
+
+  async componentDidMount() {
+    await this.populatingGenres();
+    await this.populatingMovie();
   }
 
   mapToViewModel(movie) {
