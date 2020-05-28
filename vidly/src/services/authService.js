@@ -9,8 +9,8 @@ export async function login(email, password) {
   localStorage.setItem("token", jwt);
 }
 
-export function logout(email, password) {
-  localStorage.setItem("token");
+export function logout() {
+  localStorage.removeItem("token");
 }
 
 export function loginWithJwt(jwt) {
