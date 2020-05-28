@@ -10,7 +10,7 @@ import MovieForm from "./components/movieForm";
 import LoginForm from "./components/loginForm";
 import LogoutForm from "./components/logoutForm";
 import RegisterForm from "./components/registerForm";
-import { getCurrentUser } from "../services/authService";
+import { getCurrentUser } from "./services/authService";
 
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
